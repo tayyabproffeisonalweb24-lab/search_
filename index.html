@@ -1,0 +1,1016 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nova Search | Premium Technology</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --bg: #050816;
+    --panel: #0b1226;
+    --blue: #25c7ff;
+    --purple: #9b5cff;
+    --text: #f4f7ff;
+    --muted: #8997b5;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+button, input {
+    font: inherit;
+}
+
+/* BACKGROUND EFFECTS */
+.background {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.orb {
+    position: absolute;
+    width: 420px;
+    height: 420px;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: .20;
+    animation: float 9s ease-in-out infinite alternate;
+}
+
+.orb.one {
+    background: #075dff;
+    top: -230px;
+    left: -130px;
+}
+
+.orb.two {
+    background: #842aff;
+    right: -180px;
+    bottom: -150px;
+    animation-delay: -4s;
+}
+
+.orb.three {
+    width: 250px;
+    height: 250px;
+    background: #00d9ff;
+    left: 45%;
+    bottom: 5%;
+    opacity: .08;
+}
+
+@keyframes float {
+    from { transform: translate(0, 0); }
+    to { transform: translate(45px, 35px); }
+}
+
+.grid-overlay {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(95,130,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(95,130,255,.035) 1px, transparent 1px);
+    background-size: 55px 55px;
+    mask-image: linear-gradient(to bottom, black, transparent 90%);
+}
+
+/* MAIN LAYOUT */
+.page {
+    width: min(1100px, 92%);
+    margin: auto;
+    padding: 35px 0 45px;
+}
+
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 90px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -.7px;
+}
+
+.brand-icon {
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    border-radius: 14px;
+    font-size: 22px;
+    color: white;
+    background: linear-gradient(135deg, #06b6d4, #6755ff 65%, #a855f7);
+    box-shadow: 0 0 25px #4263ff45;
+}
+
+.brand span {
+    color: #7c8cff;
+}
+
+.top-link {
+    color: #b2bdd5;
+    text-decoration: none;
+    font-size: 13px;
+    border: 1px solid #ffffff14;
+    padding: 11px 16px;
+    border-radius: 30px;
+    transition: .3s;
+}
+
+.top-link:hover {
+    color: white;
+    border-color: var(--blue);
+    background: #14213b;
+}
+
+/* HERO */
+.hero {
+    text-align: center;
+    max-width: 850px;
+    margin: 0 auto;
+    animation: enter .8s ease both;
+}
+
+@keyframes enter {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 9px 15px;
+    border: 1px solid #5c71ff45;
+    background: #18224b70;
+    color: #aebaff;
+    border-radius: 30px;
+    font-size: 11px;
+    letter-spacing: 1.6px;
+    font-weight: 700;
+    margin-bottom: 28px;
+}
+
+.live-dot {
+    width: 7px;
+    height: 7px;
+    background: #37edc0;
+    border-radius: 50%;
+    box-shadow: 0 0 12px #37edc0;
+}
+
+h1 {
+    font-size: clamp(42px, 7vw, 78px);
+    letter-spacing: -4px;
+    line-height: 1.08;
+    font-weight: 800;
+}
+
+.gradient-text {
+    background: linear-gradient(
+        100deg,
+        #ffffff 0%,
+        #62d9ff 32%,
+        #8185ff 65%,
+        #d29bff 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    background-size: 200% auto;
+    animation: shine 5s linear infinite;
+}
+
+@keyframes shine {
+    to { background-position: 200% center; }
+}
+
+.subtitle {
+    max-width: 590px;
+    margin: 22px auto 0;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.9;
+}
+
+/* SEARCH CONTAINER */
+.search-area {
+    max-width: 790px;
+    margin: 46px auto 0;
+    position: relative;
+    z-index: 5;
+}
+
+.search-frame {
+    position: relative;
+    padding: 2px;
+    border-radius: 22px;
+    background: linear-gradient(
+        110deg,
+        #13cfff,
+        #5c6cff 45%,
+        #b34aff,
+        #13cfff
+    );
+    background-size: 250% 250%;
+    animation: borderFlow 6s linear infinite;
+    box-shadow:
+        0 0 35px #168aff18,
+        0 0 80px #7544ff0b;
+    transition: .3s;
+}
+
+@keyframes borderFlow {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 250% 50%; }
+}
+
+.search-frame:focus-within {
+    box-shadow:
+        0 0 0 4px #3478ff18,
+        0 0 38px #208eff28,
+        0 0 70px #914dff18;
+    transform: translateY(-2px);
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-height: 82px;
+    padding: 12px 13px 12px 24px;
+    background: rgba(7, 13, 31, .97);
+    border-radius: 20px;
+}
+
+.search-symbol {
+    font-size: 27px;
+    color: var(--blue);
+    flex-shrink: 0;
+}
+
+#searchInput {
+    flex: 1;
+    min-width: 0;
+    color: white;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 15px;
+}
+
+#searchInput::placeholder {
+    color: #71809e;
+}
+
+.shortcut {
+    color: #7f8bab;
+    border: 1px solid #ffffff1c;
+    border-radius: 7px;
+    padding: 6px 8px;
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.clear-btn, .voice-btn {
+    display: none;
+    flex-shrink: 0;
+    background: transparent;
+    color: #a4b2d0;
+    border: none;
+    cursor: pointer;
+    padding: 7px;
+    font-size: 19px;
+}
+
+.clear-btn:hover, .voice-btn:hover {
+    color: white;
+}
+
+.search-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 13px;
+    min-height: 54px;
+    padding: 0 24px;
+    border: none;
+    border-radius: 15px;
+    background: linear-gradient(110deg, #078de9, #514cff 60%, #a12fff);
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+    box-shadow: 0 6px 22px #4b55ff35;
+    transition: .3s ease;
+}
+
+.search-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 9px 30px #5c65ff55;
+    filter: brightness(1.12);
+}
+
+.search-btn:active {
+    transform: scale(.97);
+}
+
+.search-btn span {
+    font-size: 20px;
+}
+
+/* QUICK SUGGESTIONS */
+.suggestions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 22px;
+}
+
+.suggest-label {
+    color: #667695;
+    font-size: 12px;
+    margin-right: 2px;
+}
+
+.chip {
+    border: 1px solid #a8bfff18;
+    color: #aebbd6;
+    background: #111a30b8;
+    border-radius: 9px;
+    padding: 9px 13px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: .25s;
+}
+
+.chip:hover, .chip.active {
+    color: #b7f0ff;
+    border-color: #20c8ff65;
+    background: #12324b;
+    transform: translateY(-2px);
+}
+
+/* RESULTS PANEL */
+.results-panel {
+    display: none;
+    margin-top: 18px;
+    padding: 12px;
+    border: 1px solid #647fff35;
+    border-radius: 18px;
+    background: rgba(8, 15, 34, .97);
+    box-shadow: 0 25px 65px #0008;
+    animation: enter .3s ease both;
+}
+
+.results-panel.show {
+    display: block;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px 15px;
+    border-bottom: 1px solid #ffffff0d;
+    font-size: 12px;
+    color: #8d9bb8;
+}
+
+.panel-header strong {
+    color: #d9e5ff;
+    font-size: 13px;
+}
+
+.result-count {
+    color: #6be6c5;
+}
+
+.result-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    padding: 15px 12px;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    background: transparent;
+    color: white;
+    text-align: left;
+    cursor: pointer;
+    transition: .25s;
+}
+
+.result-item:hover {
+    background: linear-gradient(100deg, #132b4d, #21163e);
+    border-color: #647fff2c;
+    transform: translateX(3px);
+}
+
+.result-icon {
+    width: 43px;
+    height: 43px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    font-size: 20px;
+    background: #172c4c;
+    border: 1px solid #5c91ff26;
+}
+
+.result-copy {
+    flex: 1;
+}
+
+.result-copy strong {
+    display: block;
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+
+.result-copy small {
+    display: block;
+    font-size: 12px;
+    color: #8c9bb9;
+    line-height: 1.5;
+}
+
+.result-arrow {
+    color: #7789b4;
+    font-size: 20px;
+}
+
+.empty-state {
+    padding: 28px 12px;
+    color: #8c9bb9;
+    text-align: center;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+/* FEATURE FOOTER */
+.features {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 34px;
+    margin: 65px 0 0;
+}
+
+.feature {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    color: #a9b6d0;
+    font-size: 12px;
+}
+
+.feature-icon {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    background: #142444;
+    border: 1px solid #6c8cff2c;
+    color: #61d8ff;
+    font-size: 16px;
+}
+
+.feature strong {
+    display: block;
+    color: #e1e9fb;
+    font-size: 12px;
+    margin-bottom: 4px;
+}
+
+.feature small {
+    color: #7383a4;
+    font-size: 10px;
+}
+
+.bottom-note {
+    text-align: center;
+    margin-top: 70px;
+    padding-top: 24px;
+    border-top: 1px solid #ffffff0b;
+    color: #53627f;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+}
+
+.bottom-note span {
+    color: #8b7dff;
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+    .page {
+        width: 91%;
+        padding-top: 23px;
+    }
+
+    .topbar {
+        margin-bottom: 76px;
+    }
+
+    .brand {
+        font-size: 17px;
+    }
+
+    .brand-icon {
+        width: 37px;
+        height: 37px;
+    }
+
+    .top-link {
+        font-size: 11px;
+        padding: 9px 11px;
+    }
+
+    h1 {
+        letter-spacing: -2px;
+    }
+
+    .subtitle {
+        font-size: 13px;
+        margin-top: 17px;
+    }
+
+    .search-area {
+        margin-top: 32px;
+    }
+
+    .search-box {
+        min-height: 67px;
+        padding: 9px 10px 9px 14px;
+        gap: 9px;
+    }
+
+    .search-symbol {
+        font-size: 22px;
+    }
+
+    #searchInput {
+        font-size: 12px;
+    }
+
+    .shortcut {
+        display: none;
+    }
+
+    .search-btn {
+        min-height: 46px;
+        padding: 0 13px;
+        font-size: 12px;
+        gap: 5px;
+        border-radius: 11px;
+    }
+
+    .suggestions {
+        gap: 8px;
+    }
+
+    .suggest-label {
+        width: 100%;
+        margin-bottom: 3px;
+    }
+
+    .chip {
+        padding: 8px 10px;
+        font-size: 11px;
+    }
+
+    .features {
+        gap: 19px;
+        margin-top: 45px;
+    }
+
+    .feature {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .bottom-note {
+        margin-top: 42px;
+        font-size: 9px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="background">
+    <div class="orb one"></div>
+    <div class="orb two"></div>
+    <div class="orb three"></div>
+    <div class="grid-overlay"></div>
+</div>
+
+<main class="page">
+
+    <header class="topbar">
+        <div class="brand">
+            <div class="brand-icon">✳</div>
+            <span>SEARCH</span>
+        </div>
+
+        <a href="#search" class="top-link">Explore Platform ↗</a>
+    </header>
+
+    <section class="hero">
+
+        <div class="eyebrow">
+            <span class="live-dot"></span>
+            NEXT-GEN SEARCH EXPERIENCE
+        </div>
+
+        <h1>
+            Search <span class="gradient-text">Beyond Limits.</span>
+        </h1>
+
+        <p class="subtitle">
+            One intelligent place to discover digital solutions,
+            explore innovative ideas, and find exactly what matters.
+        </p>
+
+        <div class="search-area" id="search">
+
+            <form class="search-frame" id="searchForm">
+                <div class="search-box">
+
+                    <div class="search-symbol">⌕</div>
+
+                    <input
+                        type="search"
+                        id="searchInput"
+                        placeholder="Explore technology, design, solutions..."
+                        autocomplete="off"
+                        aria-label="Search content"
+                    >
+
+                    <span class="shortcut">/</span>
+
+                    <button
+                        type="button"
+                        class="clear-btn"
+                        id="clearBtn"
+                        aria-label="Clear search"
+                    >✕</button>
+
+                    <button class="search-btn" type="submit">
+                        Search <span>↗</span>
+                    </button>
+
+                </div>
+            </form>
+
+            <div class="suggestions">
+                <span class="suggest-label">TRENDING:</span>
+                <button class="chip" data-query="Web Development">⌘ Development</button>
+                <button class="chip" data-query="UI UX Design">✦ UI/UX Design</button>
+                <button class="chip" data-query="Artificial Intelligence">◈ AI & Tech</button>
+                <button class="chip" data-query="E-Commerce">◇ E-Commerce</button>
+            </div>
+
+            <section class="results-panel" id="resultsPanel"
+                     aria-live="polite" aria-label="Search results">
+
+                <div class="panel-header">
+                    <strong id="resultHeading">Search results</strong>
+                    <span class="result-count" id="resultCount"></span>
+                </div>
+
+                <div id="resultsList"></div>
+
+            </section>
+
+        </div>
+
+    </section>
+
+    <section class="features">
+
+        <div class="feature">
+            <div class="feature-icon">ϟ</div>
+            <div>
+                <strong>Lightning Fast</strong>
+                <small>Instant local search</small>
+            </div>
+        </div>
+
+        <div class="feature">
+            <div class="feature-icon">◇</div>
+            <div>
+                <strong>Smart Discovery</strong>
+                <small>Relevant suggestions</small>
+            </div>
+        </div>
+
+        <div class="feature">
+            <div class="feature-icon">✧</div>
+            <div>
+                <strong>Premium Interface</strong>
+                <small>Built for modern web</small>
+            </div>
+        </div>
+
+    </section>
+
+    <footer class="bottom-note">
+        DESIGNED FOR INNOVATION <span>✦</span> BUILT FOR THE FUTURE
+    </footer>
+
+</main>
+
+<script>
+/* ===================================
+   NOVA SEARCH - JAVASCRIPT
+   =================================== */
+
+/* Sample content: replace with your own website pages */
+const searchData = [
+    {
+        title: "Web Development",
+        description: "Modern websites, frontend engineering and web solutions.",
+        keywords: "html css javascript coding website developer",
+        icon: "⌘",
+        category: "Development"
+    },
+    {
+        title: "UI/UX Design",
+        description: "Premium interfaces, design systems and user experiences.",
+        keywords: "figma interface ux ui visual design",
+        icon: "✦",
+        category: "Design"
+    },
+    {
+        title: "Artificial Intelligence",
+        description: "Explore intelligent tools and emerging technologies.",
+        keywords: "ai machine learning automation future tech",
+        icon: "◈",
+        category: "Technology"
+    },
+    {
+        title: "E-Commerce Solutions",
+        description: "Online stores, product catalogs and shopping experiences.",
+        keywords: "shop store cart ecommerce products online",
+        icon: "◇",
+        category: "Business"
+    },
+    {
+        title: "Digital Marketing",
+        description: "Grow your online presence with digital strategies.",
+        keywords: "marketing seo social media growth",
+        icon: "↗",
+        category: "Marketing"
+    },
+    {
+        title: "Education & Learning",
+        description: "Discover learning resources and educational platforms.",
+        keywords: "education courses study learning skills",
+        icon: "▱",
+        category: "Education"
+    },
+    {
+        title: "Responsive Web Design",
+        description: "Beautiful layouts for phones, tablets and desktops.",
+        keywords: "mobile responsive css layout screen",
+        icon: "▣",
+        category: "Development"
+    }
+];
+
+const form = document.getElementById("searchForm");
+const input = document.getElementById("searchInput");
+const panel = document.getElementById("resultsPanel");
+const list = document.getElementById("resultsList");
+const heading = document.getElementById("resultHeading");
+const count = document.getElementById("resultCount");
+const clearBtn = document.getElementById("clearBtn");
+const chips = document.querySelectorAll(".chip");
+
+let selectedIndex = -1;
+let currentResults = [];
+
+/* Create a result card safely */
+function createResultCard(item, index) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "result-item";
+    button.setAttribute("aria-label", item.title);
+
+    const icon = document.createElement("span");
+    icon.className = "result-icon";
+    icon.textContent = item.icon;
+
+    const copy = document.createElement("span");
+    copy.className = "result-copy";
+
+    const title = document.createElement("strong");
+    title.textContent = item.title;
+
+    const description = document.createElement("small");
+    description.textContent = item.description;
+
+    const arrow = document.createElement("span");
+    arrow.className = "result-arrow";
+    arrow.textContent = "↗";
+
+    copy.append(title, description);
+    button.append(icon, copy, arrow);
+
+    button.addEventListener("click", () => {
+        heading.textContent = item.title;
+        count.textContent = item.category;
+        input.value = item.title;
+        clearBtn.style.display = "block";
+
+        list.replaceChildren();
+
+        const message = document.createElement("div");
+        message.className = "empty-state";
+        message.textContent =
+            item.description + " Connect this item to its real page URL.";
+        list.appendChild(message);
+    });
+
+    return button;
+}
+
+/* Search title, description, keywords and category */
+function performSearch(query) {
+    const term = query.trim().toLowerCase();
+
+    list.replaceChildren();
+    selectedIndex = -1;
+
+    chips.forEach(chip => {
+        chip.classList.toggle(
+            "active",
+            chip.dataset.query.toLowerCase() === term
+        );
+    });
+
+    if (!term) {
+        panel.classList.remove("show");
+        clearBtn.style.display = "none";
+        currentResults = [];
+        return;
+    }
+
+    clearBtn.style.display = "block";
+    panel.classList.add("show");
+
+    currentResults = searchData.filter(item => {
+        const searchableText = [
+            item.title,
+            item.description,
+            item.keywords,
+            item.category
+        ].join(" ").toLowerCase();
+
+        return searchableText.includes(term);
+    });
+
+    heading.textContent = `Results for "${query.trim()}"`;
+    count.textContent = `${currentResults.length} FOUND`;
+
+    if (currentResults.length === 0) {
+        const empty = document.createElement("div");
+        empty.className = "empty-state";
+        empty.textContent =
+            "No matching results found. Try another keyword or category.";
+        list.appendChild(empty);
+        return;
+    }
+
+    currentResults.forEach((item, index) => {
+        list.appendChild(createResultCard(item, index));
+    });
+}
+
+/* Live search as user types */
+input.addEventListener("input", () => {
+    performSearch(input.value);
+});
+
+/* Submit the search */
+form.addEventListener("submit", event => {
+    event.preventDefault();
+
+    if (!input.value.trim()) {
+        input.focus();
+        return;
+    }
+
+    performSearch(input.value);
+});
+
+/* Trending chips */
+chips.forEach(chip => {
+    chip.addEventListener("click", () => {
+        input.value = chip.dataset.query;
+        performSearch(input.value);
+        input.focus();
+    });
+});
+
+/* Clear button */
+clearBtn.addEventListener("click", () => {
+    input.value = "";
+    performSearch("");
+    input.focus();
+});
+
+/* Keyboard shortcut: press / to focus search */
+document.addEventListener("keydown", event => {
+    const tag = document.activeElement.tagName;
+    const isTyping = tag === "INPUT" || tag === "TEXTAREA";
+
+    if (event.key === "/" && !isTyping) {
+        event.preventDefault();
+        input.focus();
+    }
+
+    if (event.key === "Escape") {
+        input.value = "";
+        performSearch("");
+        input.blur();
+    }
+
+    /* Arrow keys navigate results */
+    if (panel.classList.contains("show") &&
+        currentResults.length > 0) {
+
+        if (event.key === "ArrowDown") {
+            event.preventDefault();
+            selectedIndex =
+                (selectedIndex + 1) % currentResults.length;
+        }
+
+        if (event.key === "ArrowUp") {
+            event.preventDefault();
+            selectedIndex =
+                (selectedIndex - 1 + currentResults.length) %
+                currentResults.length;
+        }
+
+        const cards = list.querySelectorAll(".result-item");
+
+        cards.forEach((card, index) => {
+            card.style.borderColor =
+                index === selectedIndex ? "#29c8ff70" : "transparent";
+
+            if (index === selectedIndex) {
+                card.scrollIntoView({ block: "nearest" });
+            }
+        });
+
+        if (event.key === "Enter" && selectedIndex >= 0 &&
+            !isTyping) {
+            cards[selectedIndex]?.click();
+        }
+    }
+});
+</script>
+
+</body>
+</html>
